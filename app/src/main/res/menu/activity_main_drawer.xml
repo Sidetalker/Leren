@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_learn"
+            android:icon="@drawable/ic_school"
+            android:title="@string/learn" />
+        <item
+            android:id="@+id/nav_practice"
+            android:icon="@drawable/ic_translate"
+            android:title="@string/practice" />
+        <item
+            android:id="@+id/nav_train"
+            android:icon="@drawable/ic_replay"
+            android:title="@string/train_weak_words" />
+    </group>
+
+    <item android:title="@string/others">
+        <menu>
+            <item
+                android:id="@+id/nav_analytics"
+                android:icon="@drawable/ic_chart"
+                android:title="@string/analytics" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/action_settings" />
+        </menu>
+    </item>
+
+</menu>
