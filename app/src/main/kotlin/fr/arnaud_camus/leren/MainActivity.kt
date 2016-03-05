@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import fr.arnaud_camus.leren.ui.LearnFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.frameLayout, fragment)
                     .addToBackStack(null)
                     .commit();
+        } else {
+            Toast.makeText(this, "Not supported !", Toast.LENGTH_SHORT).show()
         }
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
