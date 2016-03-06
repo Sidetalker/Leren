@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import fr.arnaud_camus.leren.LerenApplication
 import fr.arnaud_camus.leren.R
 import fr.arnaud_camus.leren.models.Word
 import java.util.*
@@ -18,10 +19,6 @@ import java.util.*
 class LearnFragment: Fragment() {
     private var contentTextView: TextView? = null
     private var categoryName: TextView? = null
-
-    private var mockData: Array<Word> = arrayOf(Word(english = "Goodbye", dutch = "Tot ziens"),
-            Word(english = "Good morning", dutch = "Goedemorgen"),
-            Word(english = "Good afternoon", dutch = "Goedemiddag"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +39,8 @@ class LearnFragment: Fragment() {
     }
 
     fun displayNextWord() {
-        val index: Int = Random().nextInt(mockData.size - 1)
-        val word = mockData[index]
+        val index: Int = Random().nextInt((activity.application as LerenApplication).mockData.size - 1)
+        val word = (activity.application as LerenApplication).mockData[index]
 
         var string = SpannableString(getString(if (word.dutchFirst) R.string.x_means_y else R.string.x_is_translated_y,
                 word.original,
@@ -61,4 +58,5 @@ class LearnFragment: Fragment() {
 
         categoryName?.setText(if (word.categoryName != null) word.categoryName else getString(R.string.uncategorized))
     }
+
 }

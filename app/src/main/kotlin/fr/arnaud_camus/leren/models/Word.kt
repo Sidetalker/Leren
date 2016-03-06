@@ -13,7 +13,7 @@ class Word {
 
     constructor(english: String, dutch: String, categoryName: String? = null) {
         dutchFirst = Random().nextBoolean()
-
+        this.categoryName = categoryName
         if (dutchFirst) {
             original = dutch
             translation = english
