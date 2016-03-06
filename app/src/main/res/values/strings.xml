@@ -14,4 +14,6 @@
     <string name="x_means_y">%1$s means %2$s</string>
     <string name="x_is_translated_y">%1$s is translated %2$s in Dutch</string>
     <string name="uncategorized">Uncategorized</string>
+    <string name="dutch">Dutch</string>
+    <string name="english">English</string>
 </resources>

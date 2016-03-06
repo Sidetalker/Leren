@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/configuration"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/english"
+            android:id="@+id/fromLanguage"
+            android:textAlignment="center"
+            android:padding="16dp"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchLanguage"
+            android:padding="16dp"
+            android:src="@drawable/ic_swap_horizontal"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dutch"
+            android:id="@+id/toLanguage"
+            android:textAlignment="center"
+            android:padding="16dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Translate this sentence:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/configuration"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/originalWord"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="16dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:padding="8dp"
+        android:layout_below="@+id/originalWord"
+        android:singleLine="false"
+        android:lines="5"
+        android:minLines="5"
+        android:inputType="textNoSuggestions|textFilter"
+        android:privateImeOptions="nm"
+        android:imeOptions="actionGo"
+        android:background="@android:color/white"
+        android:id="@+id/editText"
+        android:hint="Write your translation"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@+id/editText"
+        android:layout_margin="8dp"
+        android:id="@+id/button"
+        />
+</RelativeLayout>

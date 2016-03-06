@@ -15,6 +15,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import fr.arnaud_camus.leren.ui.LearnFragment
+import fr.arnaud_camus.leren.ui.PracticeFragment
+import fr.arnaud_camus.leren.utils.DismissKeyboardDrawerListener
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var navigationView: NavigationView? = null
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.setDrawerListener(toggle)
+        drawer.addDrawerListener(DismissKeyboardDrawerListener())
         toggle.syncState()
 
         navigationView = findViewById(R.id.nav_view) as NavigationView
@@ -58,7 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (id == R.id.nav_learn) {
             fragment = LearnFragment()
         } else if (id == R.id.nav_practice) {
-
+            fragment = PracticeFragment()
         } else if (id == R.id.nav_train) {
 
         } else if (id == R.id.nav_analytics) {

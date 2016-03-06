@@ -6,21 +6,29 @@ import java.util.*
  * Created by arnaud on 3/5/16.
  */
 class Word {
-    val dutchFirst: Boolean
+    var dutchFirst: Boolean
     var original: String
     var translation: String
     var categoryName: String? = null
 
     constructor(english: String, dutch: String, categoryName: String? = null) {
         dutchFirst = Random().nextBoolean()
+
         this.categoryName = categoryName
-        if (dutchFirst) {
-            original = dutch
-            translation = english
-        } else {
-            original = english
-            translation = dutch
-        }
+        original = if (dutchFirst) dutch else english
+        translation = if (!dutchFirst) dutch else english
     }
 
+    fun forceDutchFirst(dutchFirst: Boolean) {
+        if (this.dutchFirst == dutchFirst) return
+        this.dutchFirst = dutchFirst
+
+        val temp = original
+        original = translation
+        translation = temp
+    }
+
+    fun checkTranslation(text: String): Boolean {
+        return translation == text || original == text
+    }
 }

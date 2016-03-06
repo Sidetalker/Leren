@@ -52,7 +52,7 @@ class LearnFragment: Fragment() {
                 0, word.original.length,
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         string.setSpan(if (word.dutchFirst) blueSpan else orangeSpan,
-                string.indexOf(word.translation), string.indexOf(word.translation) + word.translation.length,
+                string.indexOf(word.translation!!), string.indexOf(word.translation) + word.translation.length,
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         contentTextView?.setText(string)
 
