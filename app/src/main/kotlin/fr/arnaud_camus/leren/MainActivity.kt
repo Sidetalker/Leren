@@ -17,6 +17,8 @@ import android.widget.Toast
 import fr.arnaud_camus.leren.ui.LearnFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    var navigationView: NavigationView? = null
+    var selectedTab = R.id.nav_learn
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +32,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.setDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = findViewById(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)
+        navigationView = findViewById(R.id.nav_view) as NavigationView
+        navigationView?.setNavigationItemSelectedListener(this)
+        navigationView?.setCheckedItem(R.id.nav_learn)
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, LearnFragment())
+                .commit();
     }
 
     override fun onBackPressed() {
@@ -62,12 +68,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            if (id != selectedTab) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayout, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+            selectedTab = id
         } else {
-            Toast.makeText(this, "Not supported !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Not yet supported!", Toast.LENGTH_SHORT).show()
         }
 
         val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
