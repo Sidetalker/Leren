@@ -93,6 +93,8 @@ class PracticeFragment : Fragment() {
         var string = SpannableStringBuilder()
 
         for (r in results) {
+            if (r.word.length == 0) continue;
+
             string.append(r.word)
             val start = if (string.length > 0) string.length - r.word.length else 0
             val end = start + r.word.length
@@ -102,5 +104,17 @@ class PracticeFragment : Fragment() {
             string.append(" ")
         }
         editText?.text = string
+
+        setCursorPosition(results)
+    }
+
+    private fun setCursorPosition(results: ArrayList<Result>) {
+        val mistakes = results.filter { it.correct == false && !it.word.isEmpty() }
+        if (mistakes.isEmpty()) {
+            return
+        }
+        val lastMistake = mistakes.last()
+        val position = editText!!.text!!.indexOf(lastMistake.word) + lastMistake.word.length
+        editText?.setSelection(position)
     }
 }
