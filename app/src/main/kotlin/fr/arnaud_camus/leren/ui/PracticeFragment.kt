@@ -1,8 +1,12 @@
 package fr.arnaud_camus.leren.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import fr.arnaud_camus.leren.LerenApplication
 import fr.arnaud_camus.leren.R
+import fr.arnaud_camus.leren.models.Result
 import fr.arnaud_camus.leren.models.Word
 import java.util.*
 
@@ -78,8 +83,24 @@ class PracticeFragment : Fragment() {
                 Toast.makeText(context, "Good translation", Toast.LENGTH_SHORT).show()
                 displayNextWord()
             } else {
-                Toast.makeText(context, "Oops", Toast.LENGTH_SHORT).show()
+                val results = word!!.resultByWords(editText?.text.toString())
+                correctTheInput(results)
             }
         }
+    }
+
+    private fun correctTheInput(results: ArrayList<Result>) {
+        var string = SpannableStringBuilder()
+
+        for (r in results) {
+            string.append(r.word)
+            val start = if (string.length > 0) string.length - r.word.length else 0
+            val end = start + r.word.length
+            string.setSpan(if (r.correct) ForegroundColorSpan(Color.GREEN) else ForegroundColorSpan(Color.RED),
+                    start, end,
+                    SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            string.append(" ")
+        }
+        editText?.text = string
     }
 }

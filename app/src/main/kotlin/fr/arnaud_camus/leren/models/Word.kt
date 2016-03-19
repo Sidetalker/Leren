@@ -1,5 +1,6 @@
 package fr.arnaud_camus.leren.models
 
+import android.util.Log
 import java.util.*
 
 /**
@@ -29,6 +30,30 @@ class Word {
     }
 
     fun checkTranslation(text: String): Boolean {
-        return translation == text || original == text
+        val normalizedTranslation = normalizeText(translation)
+        val normalizedText = normalizeText(text)
+        Log.d("debug", normalizedText + " ---- " + normalizedTranslation)
+        return normalizedText.compareTo(normalizedTranslation) == 0
+    }
+
+    fun resultByWords(text: String): ArrayList<Result> {
+        val words = translation.split(" ")
+        val inputWords = text.split(" ")
+        val results: ArrayList<Result> = ArrayList()
+
+        var i = 0
+        for (w in inputWords) {
+            val correct = words.count() > i
+                    && normalizeText(w).compareTo(normalizeText(words[i])) == 0
+            results.add(Result(word = w, correct = correct))
+            Log.d("debug", results.last().toString())
+            i++
+        }
+
+        return results
+    }
+
+    private fun normalizeText(text: String): String {
+        return text.toLowerCase().replace(Regex("[^a-zA-Z0-9]"), "")
     }
 }
