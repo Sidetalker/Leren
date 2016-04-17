@@ -1,23 +1,27 @@
 package fr.arnaud_camus.leren.models
 
 import android.util.Log
+import io.realm.RealmObject
+import io.realm.annotations.RealmClass
 import java.util.*
 
 /**
  * Created by arnaud on 3/5/16.
  */
-class Word {
-    var dutchFirst: Boolean
-    var original: String
-    var translation: String
-    var categoryName: String? = null
 
-    constructor(english: String, dutch: String, categoryName: String? = null) {
+open class Word: RealmObject() {
+    open var dutchFirst: Boolean =  true
+    open var original: String = ""
+    open var translation: String = ""
+    open var categoryName: String? = null
+
+    fun initWith(english: String, dutch: String, categoryName: String? = null): Word {
         dutchFirst = Random().nextBoolean()
 
         this.categoryName = categoryName
         original = if (dutchFirst) dutch else english
         translation = if (!dutchFirst) dutch else english
+        return this
     }
 
     fun forceDutchFirst(dutchFirst: Boolean) {

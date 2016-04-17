@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import fr.arnaud_camus.leren.ui.DictionaryFragment
 import fr.arnaud_camus.leren.ui.LearnFragment
 import fr.arnaud_camus.leren.ui.PracticeFragment
 import fr.arnaud_camus.leren.utils.DismissKeyboardDrawerListener
@@ -62,12 +63,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragment = LearnFragment()
         } else if (id == R.id.nav_practice) {
             fragment = PracticeFragment()
-        } else if (id == R.id.nav_train) {
-
-        } else if (id == R.id.nav_analytics) {
-
-        } else if (id == R.id.nav_settings) {
-
+        } else if (id == R.id.nav_dictionary) {
+            fragment = DictionaryFragment()
         }
 
         if (fragment != null) {

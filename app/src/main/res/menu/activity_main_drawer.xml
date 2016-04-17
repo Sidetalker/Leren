@@ -11,12 +11,11 @@
             android:icon="@drawable/ic_translate"
             android:title="@string/practice" />
         <item
-            android:id="@+id/nav_train"
+            android:id="@+id/nav_dictionary"
             android:icon="@drawable/ic_replay"
-            android:enabled="false"
-            android:title="@string/train_weak_words" />
+            android:title="@string/dictionary" />
     </group>
-
+<!--
     <item android:title="@string/others">
         <menu>
             <item
@@ -31,5 +30,5 @@
                 android:title="@string/action_settings" />
         </menu>
     </item>
-
+-->
 </menu>
