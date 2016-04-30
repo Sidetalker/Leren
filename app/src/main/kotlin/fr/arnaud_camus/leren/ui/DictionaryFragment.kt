@@ -2,6 +2,7 @@ package fr.arnaud_camus.leren.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +20,13 @@ import kotlin.properties.Delegates
 
 class DictionaryFragment: Fragment() {
     private var realm: Realm by Delegates.notNull()
+    lateinit var listAdapter: DictionaryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val realmConfig = RealmConfiguration.Builder(context).build()
-
         realm = Realm.getInstance(realmConfig)
-
-        realm.beginTransaction()
-        val res = realm.where(Word::class.java).findAll()
-        Log.i("realm", res.count().toString())
-        realm.commitTransaction()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +45,19 @@ class DictionaryFragment: Fragment() {
                 dutchInput.text.clear()
 //                reloadData()
             }
+        }
+
+        realm.beginTransaction()
+        val res = realm.where(Word::class.java).findAll()
+        res.sort("original")
+        Log.i("realm", res.count().toString())
+        realm.commitTransaction()
+
+        with (list) {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(activity)
+            listAdapter = DictionaryAdapter(res)
+            adapter = listAdapter
         }
     }
 
