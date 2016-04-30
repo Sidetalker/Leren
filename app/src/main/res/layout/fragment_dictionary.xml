@@ -15,5 +15,46 @@
         android:layout_centerHorizontal="true"
         android:padding="24dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_alignParentBottom="true">
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textShortMessage"
+                android:hint="@string/english"
+                android:id="@+id/englishInput"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textShortMessage"
+                android:hint="@string/dutch_translation"
+                android:id="@+id/dutchInput"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/saveToDictionary"
+            android:src="@drawable/ic_send"
+            android:background="@android:color/transparent"
+            />
+    </LinearLayout>
 </RelativeLayout>
