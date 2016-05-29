@@ -2,11 +2,20 @@ package fr.arnaud_camus.leren
 
 import android.app.Application
 import fr.arnaud_camus.leren.models.Word
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 /**
  * Created by arnaud on 3/6/16.
  */
 class LerenApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        val realmConfig = RealmConfiguration.Builder(this).build()
+        Realm.setDefaultConfiguration(realmConfig)
+    }
+
     val mockData: Array<Word> = arrayOf(Word().initWith("Goodbye", dutch = "Tot ziens", categoryName = "Basics"),
             Word().initWith("Good morning", dutch = "Goedemorgen", categoryName = "Basics"),
             Word().initWith("Good afternoon", dutch = "Goedemiddag", categoryName = "Basics"),

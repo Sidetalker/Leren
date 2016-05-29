@@ -1,6 +1,7 @@
 package fr.arnaud_camus.leren.models
 
 import android.util.Log
+import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.annotations.RealmClass
 import java.util.*
@@ -24,11 +25,13 @@ open class Word: RealmObject() {
 
     fun forceDutchFirst(dutchFirst: Boolean) {
         if (this.dutchFirst == dutchFirst) return
+        Realm.getDefaultInstance().beginTransaction()
         this.dutchFirst = dutchFirst
 
         val temp = original
         original = translation
         translation = temp
+        Realm.getDefaultInstance().commitTransaction()
     }
 
     fun checkTranslation(text: String): Boolean {

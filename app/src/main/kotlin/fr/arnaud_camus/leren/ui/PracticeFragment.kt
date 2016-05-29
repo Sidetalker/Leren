@@ -18,15 +18,17 @@ import fr.arnaud_camus.leren.LerenApplication
 import fr.arnaud_camus.leren.R
 import fr.arnaud_camus.leren.models.Result
 import fr.arnaud_camus.leren.models.Word
+import fr.arnaud_camus.leren.ui.views.LanguageConfiguration
+import kotlinx.android.synthetic.main.fragment_practice.*
+import kotlinx.android.synthetic.main.include_configuration.*
 import java.util.*
 
 /**
  * Created by arnaud on 3/6/16.
  */
-class PracticeFragment : Fragment() {
+class PracticeFragment : Fragment(), LanguageConfiguration.LanguageConfigurationChange {
+
     var fromEnglish = true
-    var editText: EditText? = null
-    var originalWord: TextView? = null
     var word: Word? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,20 +42,9 @@ class PracticeFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val switchButton = view?.findViewById(R.id.switchLanguage) as ImageButton
-        val button = view?.findViewById(R.id.button) as Button
-        editText = view?.findViewById(R.id.editText) as EditText
-        originalWord = view?.findViewById(R.id.originalWord) as TextView
 
-        switchButton.setOnClickListener({
-            val from = view?.findViewById(R.id.fromLanguage) as TextView
-            val to = view?.findViewById(R.id.toLanguage) as TextView
-            val temp = from.text
-
-            from.setText(to.text)
-            to.setText(temp)
-            fromEnglish = !fromEnglish
-        })
+        val languageConfig = view?.findViewById(R.id.configuration) as? LanguageConfiguration
+        languageConfig?.setOnLanguageConfigurationChange(this)
 
         button.setOnClickListener({
             performCheck()
@@ -66,6 +57,10 @@ class PracticeFragment : Fragment() {
         }
 
         displayNextWord()
+    }
+
+    override fun onLanguageConfigurationChange(newPrimaryLanguage: LanguageConfiguration.PRIMARY_LANGUAGE) {
+        fromEnglish = newPrimaryLanguage.equals(LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH)
     }
 
     fun displayNextWord() {
@@ -90,7 +85,7 @@ class PracticeFragment : Fragment() {
     }
 
     private fun correctTheInput(results: ArrayList<Result>) {
-        var string = SpannableStringBuilder()
+        val string = SpannableStringBuilder()
 
         for (r in results) {
             if (r.word.length == 0) continue;
@@ -114,7 +109,9 @@ class PracticeFragment : Fragment() {
             return
         }
         val lastMistake = mistakes.last()
-        val position = editText!!.text!!.indexOf(lastMistake.word) + lastMistake.word.length
-        editText?.setSelection(position)
+        if (editText != null) {
+            val position = editText.text!!.indexOf(lastMistake.word) + lastMistake.word.length
+            editText?.setSelection(position)
+        }
     }
 }
