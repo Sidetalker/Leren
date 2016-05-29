@@ -2,6 +2,7 @@ package fr.arnaud_camus.leren.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.res.ResourcesCompat
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
@@ -45,8 +46,8 @@ class LearnFragment: Fragment() {
         var string = SpannableString(getString(if (word.dutchFirst) R.string.x_means_y else R.string.x_is_translated_y,
                 word.original,
                 word.translation))
-        val orangeSpan = ForegroundColorSpan(resources.getColor(R.color.colorPrimary, activity.theme))
-        val blueSpan = ForegroundColorSpan(resources.getColor(R.color.colorAccent, activity.theme))
+        val orangeSpan = ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.colorPrimary, activity.theme))
+        val blueSpan = ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.colorAccent, activity.theme))
 
         string.setSpan(if (word.dutchFirst) orangeSpan else blueSpan,
                 0, word.original.length,

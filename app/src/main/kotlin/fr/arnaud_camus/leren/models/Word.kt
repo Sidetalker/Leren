@@ -10,14 +10,12 @@ import java.util.*
  */
 
 open class Word: RealmObject() {
-    open var dutchFirst: Boolean =  true
+    open var dutchFirst: Boolean =  false
     open var original: String = ""
     open var translation: String = ""
     open var categoryName: String? = null
 
     fun initWith(english: String, dutch: String, categoryName: String? = null): Word {
-        dutchFirst = Random().nextBoolean()
-
         this.categoryName = categoryName
         original = if (dutchFirst) dutch else english
         translation = if (!dutchFirst) dutch else english

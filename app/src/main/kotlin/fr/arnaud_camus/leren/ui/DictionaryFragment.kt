@@ -11,7 +11,10 @@ import fr.arnaud_camus.leren.R
 import fr.arnaud_camus.leren.models.Word
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_dictionary.*
+import kotlinx.android.synthetic.main.fragment_practice.*
+import java.util.*
 import kotlin.properties.Delegates
 
 /**
@@ -21,6 +24,7 @@ import kotlin.properties.Delegates
 class DictionaryFragment: Fragment() {
     private var realm: Realm by Delegates.notNull()
     lateinit var listAdapter: DictionaryAdapter
+    var res: ArrayList<Word>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,25 +42,30 @@ class DictionaryFragment: Fragment() {
         saveToDictionary.setOnClickListener {
             if (englishInput.text.isNotEmpty() && dutchInput.text.isNotEmpty()) {
                 realm.beginTransaction()
-                var word = realm.createObject(Word::class.java)
+                val word = realm.createObject(Word::class.java)
                 word.initWith(englishInput.text.toString(), dutchInput.text.toString())
                 realm.commitTransaction()
                 englishInput.text.clear()
                 dutchInput.text.clear()
-//                reloadData()
+                res?.add(word)
+                res?.sortWith( Comparator { w,  w2 ->
+                    w.original.toLowerCase().compareTo(w2.original.toLowerCase())
+                })
+                listAdapter.notifyDataSetChanged()
             }
         }
 
         realm.beginTransaction()
-        val res = realm.where(Word::class.java).findAll()
-        res.sort("original")
-        Log.i("realm", res.count().toString())
+        res = ArrayList(realm.where(Word::class.java).findAll())
         realm.commitTransaction()
 
+        res?.sortWith( Comparator { w,  w2 ->
+            w.original.toLowerCase().compareTo(w2.original.toLowerCase())
+        })
         with (list) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
-            listAdapter = DictionaryAdapter(res)
+            listAdapter = DictionaryAdapter(res!!)
             adapter = listAdapter
         }
     }

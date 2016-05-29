@@ -4,41 +4,10 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize">
 
-    <LinearLayout
+    <include android:id="@+id/configuration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/configuration"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/english"
-            android:id="@+id/fromLanguage"
-            android:textAlignment="center"
-            android:padding="16dp"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/switchLanguage"
-            android:padding="16dp"
-            android:src="@drawable/ic_swap_horizontal"
-            android:background="@android:color/transparent" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/dutch"
-            android:id="@+id/toLanguage"
-            android:textAlignment="center"
-            android:padding="16dp"/>
-
-    </LinearLayout>
+        layout="@layout/include_configuration"/>
 
     <TextView
         android:layout_width="wrap_content"

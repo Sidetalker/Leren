@@ -2,18 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@android:color/background_light"
+    android:layout_marginTop="?attr/actionBarSize">
+
+
+    <include android:id="@+id/configuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_configuration"/>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="60dp"
-        android:paddingTop="8dp"
+        android:layout_below="@+id/configuration"
+        android:layout_above="@+id/bottomInput"
+        android:paddingBottom="8dp"
         android:scrollbars="vertical"/>
 
     <LinearLayout
+        android:id="@+id/bottomInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
