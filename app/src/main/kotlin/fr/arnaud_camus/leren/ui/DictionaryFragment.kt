@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import fr.arnaud_camus.leren.R
 import fr.arnaud_camus.leren.models.Word
 import fr.arnaud_camus.leren.ui.views.LanguageConfiguration
+import fr.arnaud_camus.leren.utils.CustomDecorationDivider
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_dictionary.*
 import java.util.*
@@ -65,6 +66,7 @@ class DictionaryFragment: Fragment(), LanguageConfiguration.LanguageConfiguratio
             layoutManager = LinearLayoutManager(context)
             listAdapter = DictionaryAdapter(res!!)
             adapter = listAdapter
+            addItemDecoration(CustomDecorationDivider(context))
         }
     }
 
