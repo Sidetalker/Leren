@@ -1,7 +1,12 @@
 package fr.arnaud_camus.leren
 
 import android.app.Application
+import android.util.Log
+import com.android.volley.Response
+import com.android.volley.VolleyError
 import fr.arnaud_camus.leren.models.Word
+import fr.arnaud_camus.leren.network.GetInitialDictionary
+import fr.arnaud_camus.leren.network.VolleySingleton
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -14,6 +19,16 @@ class LerenApplication: Application() {
         super.onCreate()
         val realmConfig = RealmConfiguration.Builder(this).build()
         Realm.setDefaultConfiguration(realmConfig)
+        VolleySingleton.getInstance(this).addToRequestQueue(GetInitialDictionary(this, object: Response.Listener<List<Word>> {
+                override fun onResponse(response: List<Word>) {
+                    Log.i("leren", "GetInitialDictionary callback " + response.size + " items")
+                }
+            }, object: Response.ErrorListener {
+                override fun onErrorResponse(error: VolleyError) {
+                    error.printStackTrace()
+                }
+            }
+        ))
     }
 
     val mockData: Array<Word> = arrayOf(Word().initWith("Goodbye", dutch = "Tot ziens", categoryName = "Basics"),

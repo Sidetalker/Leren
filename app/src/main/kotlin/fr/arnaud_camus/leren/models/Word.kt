@@ -1,10 +1,18 @@
 package fr.arnaud_camus.leren.models
 
+import android.content.Context
 import android.util.Log
 import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.annotations.RealmClass
 import java.util.*
+import android.telecom.Conference
+import com.opencsv.CSVReader
+import io.realm.annotations.PrimaryKey
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStreamReader
+
 
 /**
  * Created by arnaud on 3/5/16.
@@ -12,7 +20,7 @@ import java.util.*
 
 open class Word: RealmObject() {
     open var dutchFirst: Boolean =  false
-    open var original: String = ""
+    @PrimaryKey open var original: String = ""
     open var translation: String = ""
     open var categoryName: String? = null
 
@@ -60,5 +68,28 @@ open class Word: RealmObject() {
 
     private fun normalizeText(text: String): String {
         return text.toLowerCase().replace(Regex("[^a-zA-Z0-9]"), "")
+    }
+
+    companion object {
+        fun parseInputStream(stream: InputStreamReader): List<Word> {
+            val dictionary = mutableListOf<Word>()
+            try {
+                val reader = CSVReader(stream, '\t')
+                reader.readNext() // file headline
+                var nextLine: Array<String>? = reader.readNext()
+                while (nextLine != null) {
+                    if (nextLine.size > 1) {
+                        dictionary.add(Word().initWith(nextLine.first(), nextLine.get(1)))
+                    }
+                    nextLine = reader.readNext()
+                }
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            return dictionary
+        }
     }
 }
