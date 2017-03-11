@@ -66,16 +66,14 @@ class PracticeFragment : Fragment(), LanguageConfiguration.LanguageConfiguration
     fun displayNextWord() {
         val index: Int = Random().nextInt((activity.application as LerenApplication).mockData.size - 1)
         word = (activity.application as LerenApplication).mockData[index]
-        word?.forceDutchFirst(!fromEnglish)
-
-        originalWord?.setText(word?.original)
+        originalWord?.setText(word?.display(fromEnglish))
         editText?.text = null
     }
 
     private fun performCheck() {
         if (editText?.text!!.isNotEmpty()) {
             if (word!!.checkTranslation(editText?.text.toString())) {
-                Toast.makeText(context, "Good translation", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Good dutch", Toast.LENGTH_SHORT).show()
                 displayNextWord()
             } else {
                 val results = word!!.resultByWords(editText?.text.toString())

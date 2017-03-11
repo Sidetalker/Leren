@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.adapter_dictionary.view.*
 
 class DictionaryAdapter(val mWords: MutableList<Word>) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
 
+    var sortedByEnglishWords = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,11 +24,12 @@ class DictionaryAdapter(val mWords: MutableList<Word>) : RecyclerView.Adapter<Di
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mWords[position]
 
-        holder.word.text = item.original
-        holder.translation.text = item.translation
-        holder.firstLetter.text = item.original.first().toString()
+        holder.word.text = item.display(sortedByEnglishWords)
+        holder.translation.text = item.display(!sortedByEnglishWords)
+        holder.firstLetter.text = item.display(sortedByEnglishWords).first().toString()
 
-        holder.firstLetter.visibility = if (position > 0 && mWords[position-1].original.first() == item.original.first()) {
+        holder.firstLetter.visibility = if (position > 0
+                && mWords[position-1].display(sortedByEnglishWords).first() == item.display(sortedByEnglishWords).first()) {
             View.INVISIBLE
         } else {
             View.VISIBLE

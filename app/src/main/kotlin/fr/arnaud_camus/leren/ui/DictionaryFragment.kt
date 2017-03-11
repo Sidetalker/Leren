@@ -76,22 +76,18 @@ class DictionaryFragment: Fragment(), LanguageConfiguration.LanguageConfiguratio
 
     override fun onLanguageConfigurationChange(newPrimaryLanguage: LanguageConfiguration.PRIMARY_LANGUAGE) {
         reorderList()
+        listAdapter.sortedByEnglishWords = languageConfig?.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH
         listAdapter.notifyDataSetChanged()
         list.smoothScrollToPosition(0)
     }
 
     fun reorderList() {
-
-        res?.forEach {
-            if (languageConfig != null &&
-                    (it.dutchFirst && languageConfig!!.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH)
-                || (!it.dutchFirst && languageConfig!!.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.DUTCH)) {
-                it.forceDutchFirst(!it.dutchFirst)
-            }
-        }
-
         res?.sortWith( Comparator { w,  w2 ->
-            w.original.toLowerCase().compareTo(w2.original.toLowerCase())
+            if (languageConfig?.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH) {
+                w.english.toLowerCase().compareTo(w2.english.toLowerCase())
+            } else {
+                w.dutch.toLowerCase().compareTo(w2.dutch.toLowerCase())
+            }
         })
     }
 

@@ -19,38 +19,32 @@ import java.io.InputStreamReader
  */
 
 open class Word: RealmObject() {
-    open var dutchFirst: Boolean =  false
-    @PrimaryKey open var original: String = ""
-    open var translation: String = ""
+    @PrimaryKey open var english: String = ""
+    open var dutch: String = ""
     open var categoryName: String? = null
+
+    fun display(fromEnglish: Boolean) : String = if (fromEnglish) {
+        english
+    } else {
+        dutch
+    }
 
     fun initWith(english: String, dutch: String, categoryName: String? = null): Word {
         this.categoryName = categoryName
-        original = if (dutchFirst) dutch else english
-        translation = if (!dutchFirst) dutch else english
+        this.english = english
+        this.dutch = dutch
         return this
     }
 
-    fun forceDutchFirst(dutchFirst: Boolean) {
-        if (this.dutchFirst == dutchFirst) return
-        Realm.getDefaultInstance().beginTransaction()
-        this.dutchFirst = dutchFirst
-
-        val temp = original
-        original = translation
-        translation = temp
-        Realm.getDefaultInstance().commitTransaction()
-    }
-
     fun checkTranslation(text: String): Boolean {
-        val normalizedTranslation = normalizeText(translation)
+        val normalizedTranslation = normalizeText(dutch)
         val normalizedText = normalizeText(text)
         Log.d("debug", normalizedText + " ---- " + normalizedTranslation)
         return normalizedText.compareTo(normalizedTranslation) == 0
     }
 
     fun resultByWords(text: String): ArrayList<Result> {
-        val words = translation.split(" ")
+        val words = dutch.split(" ")
         val inputWords = text.split(" ")
         val results: ArrayList<Result> = ArrayList()
 
