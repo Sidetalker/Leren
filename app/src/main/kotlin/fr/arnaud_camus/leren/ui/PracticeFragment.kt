@@ -60,7 +60,7 @@ class PracticeFragment : Fragment(), LanguageConfiguration.LanguageConfiguration
     }
 
     override fun onLanguageConfigurationChange(newPrimaryLanguage: LanguageConfiguration.PRIMARY_LANGUAGE) {
-        fromEnglish = newPrimaryLanguage.equals(LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH)
+        fromEnglish = newPrimaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH
     }
 
     fun displayNextWord() {
@@ -73,7 +73,7 @@ class PracticeFragment : Fragment(), LanguageConfiguration.LanguageConfiguration
     }
 
     private fun performCheck() {
-        if (editText?.text!!.length > 0) {
+        if (editText?.text!!.isNotEmpty()) {
             if (word!!.checkTranslation(editText?.text.toString())) {
                 Toast.makeText(context, "Good translation", Toast.LENGTH_SHORT).show()
                 displayNextWord()
@@ -88,10 +88,10 @@ class PracticeFragment : Fragment(), LanguageConfiguration.LanguageConfiguration
         val string = SpannableStringBuilder()
 
         for (r in results) {
-            if (r.word.length == 0) continue;
+            if (r.word.isEmpty()) continue;
 
             string.append(r.word)
-            val start = if (string.length > 0) string.length - r.word.length else 0
+            val start = if (string.isNotEmpty()) string.length - r.word.length else 0
             val end = start + r.word.length
             string.setSpan(if (r.correct) ForegroundColorSpan(Color.GREEN) else ForegroundColorSpan(Color.RED),
                     start, end,

@@ -43,7 +43,7 @@ class LearnFragment: Fragment() {
         val index: Int = Random().nextInt((activity.application as LerenApplication).mockData.size - 1)
         val word = (activity.application as LerenApplication).mockData[index]
 
-        var string = SpannableString(getString(if (word.dutchFirst) R.string.x_means_y else R.string.x_is_translated_y,
+        val string = SpannableString(getString(if (word.dutchFirst) R.string.x_means_y else R.string.x_is_translated_y,
                 word.original,
                 word.translation))
         val orangeSpan = ForegroundColorSpan(ResourcesCompat.getColor(resources, R.color.colorPrimary, activity.theme))
@@ -53,7 +53,7 @@ class LearnFragment: Fragment() {
                 0, word.original.length,
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         string.setSpan(if (word.dutchFirst) blueSpan else orangeSpan,
-                string.indexOf(word.translation!!), string.indexOf(word.translation) + word.translation.length,
+                string.indexOf(word.translation), string.indexOf(word.translation) + word.translation.length,
                 SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         contentTextView?.setText(string)
 

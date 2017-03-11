@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView?.setCheckedItem(R.id.nav_learn)
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout, LearnFragment())
-                .commit();
+                .commit()
     }
 
     override fun onBackPressed() {
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frameLayout, fragment)
                         .addToBackStack(null)
-                        .commit();
+                        .commit()
             }
             selectedTab = id
         } else {

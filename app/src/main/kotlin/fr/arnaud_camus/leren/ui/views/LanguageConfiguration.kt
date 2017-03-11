@@ -34,7 +34,7 @@ class LanguageConfiguration: LinearLayout {
             fromLanguage.setText(toLanguage.text)
             toLanguage.setText(temp)
 
-            primaryLanguage = if (primaryLanguage.equals(PRIMARY_LANGUAGE.ENGLISH)) {
+            primaryLanguage = if (primaryLanguage == PRIMARY_LANGUAGE.ENGLISH) {
                 PRIMARY_LANGUAGE.DUTCH
             } else {
                 PRIMARY_LANGUAGE.ENGLISH

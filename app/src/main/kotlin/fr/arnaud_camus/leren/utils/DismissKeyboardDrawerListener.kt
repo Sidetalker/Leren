@@ -11,6 +11,6 @@ import android.view.inputmethod.InputMethodManager
 class DismissKeyboardDrawerListener: DrawerLayout.SimpleDrawerListener() {
     override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
         val inputMethodManager = drawerView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(drawerView?.getApplicationWindowToken(), 0)
+        inputMethodManager.hideSoftInputFromWindow(drawerView.getApplicationWindowToken(), 0)
     }
 }

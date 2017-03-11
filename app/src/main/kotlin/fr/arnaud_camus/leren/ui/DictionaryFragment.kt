@@ -3,6 +3,7 @@ package fr.arnaud_camus.leren.ui
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -83,8 +84,8 @@ class DictionaryFragment: Fragment(), LanguageConfiguration.LanguageConfiguratio
 
         res?.forEach {
             if (languageConfig != null &&
-                    (it.dutchFirst && languageConfig!!.primaryLanguage.equals(LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH))
-                || (!it.dutchFirst && languageConfig!!.primaryLanguage.equals(LanguageConfiguration.PRIMARY_LANGUAGE.DUTCH))) {
+                    (it.dutchFirst && languageConfig!!.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.ENGLISH)
+                || (!it.dutchFirst && languageConfig!!.primaryLanguage == LanguageConfiguration.PRIMARY_LANGUAGE.DUTCH)) {
                 it.forceDutchFirst(!it.dutchFirst)
             }
         }
