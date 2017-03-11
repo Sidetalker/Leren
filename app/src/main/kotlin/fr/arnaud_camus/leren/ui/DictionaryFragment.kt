@@ -3,8 +3,6 @@ package fr.arnaud_camus.leren.ui
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +10,7 @@ import fr.arnaud_camus.leren.R
 import fr.arnaud_camus.leren.models.Word
 import fr.arnaud_camus.leren.ui.views.LanguageConfiguration
 import io.realm.Realm
-import io.realm.RealmConfiguration
-import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_dictionary.*
-import kotlinx.android.synthetic.main.fragment_practice.*
-import kotlinx.android.synthetic.main.include_configuration.*
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -68,7 +62,7 @@ class DictionaryFragment: Fragment(), LanguageConfiguration.LanguageConfiguratio
         reorderList()
         with (list) {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
             listAdapter = DictionaryAdapter(res!!)
             adapter = listAdapter
         }
